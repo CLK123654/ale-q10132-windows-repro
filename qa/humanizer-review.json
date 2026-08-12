@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "skill": "humanizer-zh",
+  "result": "PASS",
+  "reviewed_scope": [
+    "任务名称",
+    "任务概要",
+    "任务prompt",
+    "关键动作",
+    "评分表",
+    "环境依赖",
+    "相关专业软件的关键步骤",
+    "输入README",
+    "关键标准答案五页",
+    "任务规格转化"
+  ],
+  "scores": {
+    "directness": 10,
+    "rhythm": 9,
+    "trust": 10,
+    "authenticity": 9,
+    "concision": 9,
+    "total": 47
+  },
+  "notes": [
+    "删除候选人自证报告、重复运行与失败演练要求",
+    "将四份报告分别绑定发布值班、媒体质量工程师、转码平台和容量负责人",
+    "保留HLS专业字段与公开策略来源，去掉宣传语、机械结尾和否定式排比",
+    "变更业务名词与句长，未沿用同构三段式或批量模板标题"
+  ],
+  "online_ai_detector_used_as_conclusion": false
+}

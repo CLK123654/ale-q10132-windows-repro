@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "result": "PASS",
+  "scanned_sources": 190,
+  "violations": [],
+  "answer_sheets": [
+    "交付物答案清单",
+    "固定字段答案",
+    "固定集合答案",
+    "固定数值答案",
+    "允许变体答案"
+  ],
+  "specification_sheets": [
+    "任务规格转化"
+  ],
+  "task_spec_row_count": 17,
+  "task_spec_column_count": 2,
+  "task_asset_id": "node_hls_publish_disposition",
+  "task_asset_id_valid": true,
+  "forbidden_spec_labels": [],
+  "declared_delivery_paths": [
+    "reports/asset_publish_matrix.csv",
+    "reports/bandwidth_ladder.csv",
+    "reports/segment_requeue.csv",
+    "reports/variant_playlist_audit.csv",
+    "src/audit_hls_publish.mjs"
+  ],
+  "reference_paths": [
+    "reports/asset_publish_matrix.csv",
+    "reports/bandwidth_ladder.csv",
+    "reports/segment_requeue.csv",
+    "reports/variant_playlist_audit.csv",
+    "src/audit_hls_publish.mjs"
+  ],
+  "business_inputs": [
+    "input_data/data/encode_jobs.csv",
+    "input_data/rules/hls_publish_policy.json",
+    "input_data/playlists",
+    "input_data/starter/audit_hls_publish.mjs"
+  ],
+  "business_inputs_present": true,
+  "humanizer_score": 47,
+  "online_ai_detector_used_as_conclusion": false
+}
