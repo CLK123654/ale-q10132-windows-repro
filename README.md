@@ -1,7 +1,5 @@
-# Q10132 Windows reproduction
+# 短视频HLS发布包裁决
 
-This repository contains the final public task package and an independent Windows Server2025 verification workflow for a Node.js HLS publication disposition task.
+本仓库保存短视频HLS发布包的离线放行与重投裁决任务。task目录是任务正文，artifacts目录包含输入数据、标准交付和两份工作簿。
 
-The workflow checks all four attachment hashes, scans archive members for platform-specific executables, runs the actual Node.js processing chain in two clean directories whose names contain Chinese characters and spaces, compares every generated deliverable with the Reference, exercises a policy-order mutation, and confirms that missing required input fails without leaving output.
-
-Business processing is offline. Network access is used only by GitHub Actions setup steps when obtaining Node.js.
+答题入口、软件条件和交付路径以task目录中的Prompt与环境依赖为准。

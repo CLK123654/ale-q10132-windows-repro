@@ -1,3 +1,5 @@
-短视频发布包可在Windows11原生环境、macOS或Linux处理。主软件为Node.js24LTS，负责CSV与JSON读取、目录遍历、HLS文本解析、规则裁决和报告写入。PowerShell、Windows终端或系统终端只承担解压与npm命令执行；完成版使用Node.js内置模块，不安装第三方npm包。
+操作系统：Windows11、macOS或主流64位Linux。
 
-运行期间保持离线，不访问转码、对象存储、CDN或其它外部服务，Node.js只在安装时需要软件源。执行账户需要读取data、rules和playlists，并能在input_data下创建output。普通开发电脑的CPU与内存足以解析当前播放列表，无需GPU，磁盘只需容纳输入与报告；入口应设置有限超时，若数分钟内没有结束，应检查播放列表引用环和残留输出。不需要媒体平台账号或管理员权限。Windows路径可能包含中文和空格，文件定位应采用Node.js路径接口。
+主软件为Node.js20或更高版本，用于读取CSV与JSON、遍历目录、解析HLS文本并写出报告。代码仅使用Node.js内置模块，无需安装第三方npm包。PowerShell、Windows终端或系统终端可用于解压和执行npm命令。
+
+适合当前播放列表规模的普通开发电脑CPU与内存即可完成处理，无需GPU。磁盘需容纳Node.js、播放列表和四份报告。执行账户需能读取data、rules和playlists，并能在input_data下创建output。任务在本地完成，不依赖网络服务。入口需设置有限超时，覆盖本题批次处理并避免异常无限等待。
