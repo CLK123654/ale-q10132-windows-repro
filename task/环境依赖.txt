@@ -1,0 +1,5 @@
+任务支持Windows11、macOS和Linux。主软件为Node.js24LTS，负责CSV与JSON读取、目录遍历、HLS文本解析、规则裁决和报告写入。辅助工具可使用PowerShell、Windows终端或系统终端解压文件并运行npm命令。
+
+完成版只依赖Node.js内置模块，无需安装第三方npm包。运行期间保持离线，不访问转码、对象存储、CDN或其它外部服务。执行账户需要读取input_data/data、input_data/rules和input_data/playlists，并可在input_data/output写入源码和报告。建议预留单核CPU、1GB内存和200MB磁盘，单次处理时间上限为60秒。
+
+处理时需保留CSV换行兼容性和跨平台路径语义。master中的variant URI可能指向不同文件名，profile只能由RESOLUTION高度识别；失败重跑前应避免沿用上次留下的报告。

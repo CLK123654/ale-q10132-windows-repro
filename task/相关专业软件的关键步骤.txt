@@ -1,0 +1,8 @@
+1. 用Node.js读取data/encode_jobs.csv和rules/hls_publish_policy.json，检查资产主键、预期时长、required_profiles、时长容差、码率边界、原因顺序和动作映射是否可用。
+2. 遍历playlists下的资产目录，解析master.m3u8中的EXT-X-STREAM-INF，取得BANDWIDTH、RESOLUTION、CODECS和后续variant URI。
+3. 根据RESOLUTION高度建立profile映射，以required_profiles核对缺失档位，并把master相对路径保留为问题来源。
+4. 打开master实际引用的variant，用Node.js逐行配对EXTINF和片段URI，读取EXT-X-MEDIA-SEQUENCE并推导预期片名。
+5. 按资产预期时长和策略容差计算片段数、总时长及单片时长状态，同时核对编码前缀和profile码率范围。
+6. 依照required_profiles顺序比较相邻档位带宽，将缺失档位与码率倒挂分别纳入资产问题集合。
+7. 按requeue_reason_order排序问题，从requeue_actions取得主动作，形成资产放行矩阵和单一重投指令。
+8. 用Node.js写出四份CSV，按asset_id及profile等业务主键排序，并核对报告中的资产、profile、来源路径、原因和动作能够互相对应。

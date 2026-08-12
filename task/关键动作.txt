@@ -1,0 +1,6 @@
+读取encode_jobs.csv与hls_publish_policy.json，建立资产时长、profile要求、容差、码率边界、原因顺序和动作映射
+解析各资产master中的EXT-X-STREAM-INF，取得variant URI、带宽、分辨率和编码，并按分辨率高度确定profile
+配对variant中的EXTINF与片段URI，结合媒体序列、片名格式和预期时长识别缺片与时长偏差
+核对必需profile、编码前缀、码率上下限以及相邻profile的递增关系
+汇总同一资产的规则命中，按策略顺序选取主原因并生成单一放行或重投动作
+导出资产矩阵、variant明细、重投指令和码率梯度报告，按业务主键检查跨报告关系

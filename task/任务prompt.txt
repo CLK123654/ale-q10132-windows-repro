@@ -1,0 +1,9 @@
+早高峰前有一批短视频要送入边缘分发。近期人工抽播漏掉过尾片缺失和码率倒挂，发布值班需要一套能从播放列表直接复算的离线放行结果。
+
+输入数据包的input_data目录提供data/encode_jobs.csv、rules/hls_publish_policy.json和playlists目录。发布清单给出资产及预期时长，策略定义必需profile、时长容差、编码前缀、码率范围、重投原因顺序和动作映射；每个资产目录保存master与实际存在的variant播放列表。README.md说明入口和交付位置，starter/audit_hls_publish.mjs是待完成源码。
+
+请使用Node.js完成src/audit_hls_publish.mjs。程序应从master的EXT-X-STREAM-INF读取带宽、分辨率、编码和variant URI，并由分辨率高度识别profile。解析variant时，将每条EXTINF与紧随其后的片段URI配对，结合EXT-X-MEDIA-SEQUENCE和现有片名格式识别缺片。随后按策略核对profile集合、总时长、单片时长、编码前缀、码率上下限以及相邻profile的码率递增关系。
+
+一个资产可能同时触发多项处置。请按requeue_reason_order选择主原因，再从requeue_actions取得对应动作。发布值班需要reports/asset_publish_matrix.csv掌握资产结论，转码平台使用reports/segment_requeue.csv执行重投，媒体质量工程师查阅reports/variant_playlist_audit.csv定位播放列表问题，容量负责人使用reports/bandwidth_ladder.csv检查码率梯度。四份报告按各自业务主键稳定排序。
+
+在input_data中运行npm run process:hls。命令成功后，output中应包含src/audit_hls_publish.mjs及上述四份报告。所有结果只取自本地材料，处理过程不得连接转码、对象存储或CDN服务，也不得修改发布清单、策略和播放列表。
