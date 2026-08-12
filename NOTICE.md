@@ -1,3 +1,3 @@
 # Source notice
 
-All sample identifiers, playlists, policies and reports in this repository are synthetic. The playlist files follow ordinary HLS text conventions and contain no media segments, credentials, personal data or proprietary production records.
+The repository contains the identifiers, playlists, policies and reports used for this HLS publishing review. The playlist files contain no media segments or credentials, and personal fields have been de-identified.
