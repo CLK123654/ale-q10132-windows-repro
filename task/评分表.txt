@@ -1,6 +1,6 @@
 总分：100分
 
-检查项：交付物和Node.js入口
+1. 交付物和Node.js入口
 分值：12分
 标准答案或判定规则：src/audit_hls_publish.mjs及四份reports目录CSV均可读；在input_data中执行npm run process:hls于60秒内返回0，报告由本次Node.js进程生成。
 关键字段或路径：src/audit_hls_publish.mjs；reports/asset_publish_matrix.csv；reports/variant_playlist_audit.csv；reports/segment_requeue.csv；reports/bandwidth_ladder.csv；package.json中的process:hls。
@@ -12,7 +12,7 @@
 优先级：Gate项。
 所属层级：L8运行验证或可执行行为层。
 
-检查项：master解析与profile归属
+2. master解析与profile归属
 分值：15分
 标准答案或判定规则：每条variant记录的bandwidth、resolution、codec和相对路径来自对应master；profile由RESOLUTION高度映射，资产与profile组合不重复。
 关键字段或路径：playlists各资产master.m3u8；variant_playlist_audit.csv的asset_id、profile、bandwidth、resolution、codec和source_playlist。
@@ -24,7 +24,7 @@
 优先级：高权重项。
 所属层级：L3输入数据导入与完整性层。
 
-检查项：variant片段与时长
+3. variant片段与时长
 分值：16分
 标准答案或判定规则：每条EXTINF与紧随其后的片段URI成对；segment_count、total_duration_seconds、max_segment_seconds和missing_segment依据媒体序列、片名格式、预期时长及策略容差计算。
 关键字段或路径：variant_playlist_audit.csv的segment_count、total_duration_seconds、max_segment_seconds和playlist_status；segment_requeue.csv的expected_segment。
@@ -36,7 +36,7 @@
 优先级：高权重项。
 所属层级：L6领域计算与专业规则层。
 
-检查项：profile集合、编码与码率梯度
+4. profile集合、编码与码率梯度
 分值：17分
 标准答案或判定规则：每个资产按required_profiles核对缺失档位；codec符合codec_prefix；bandwidth位于对应上下限内；相邻已存在profile按策略顺序严格递增。
 关键字段或路径：asset_publish_matrix.csv的expected_profiles和found_profiles；variant_playlist_audit.csv的codec、bandwidth和playlist_status；bandwidth_ladder.csv全部字段。
@@ -48,7 +48,7 @@
 优先级：高权重项。
 所属层级：L5多源关联与字段一致性层。
 
-检查项：主原因、发布决定与重投动作
+5. 主原因、发布决定与重投动作
 分值：18分
 标准答案或判定规则：同一资产的全部问题按requeue_reason_order排序，只保留首项为primary_reason；存在问题时publish_decision为hold_requeue并输出一条重投记录，动作取自requeue_actions；无问题时publish_decision为publish且primary_reason为ready。
 关键字段或路径：asset_publish_matrix.csv的publish_decision、primary_reason和requeue_count；segment_requeue.csv的asset_id、profile、reason、source_playlist、expected_segment和action。
@@ -60,7 +60,7 @@
 优先级：高权重项。
 所属层级：L6领域计算与专业规则层。
 
-检查项：报告结构、排序和跨报告追溯
+6. 报告结构、排序和跨报告追溯
 分值：10分
 标准答案或判定规则：四份CSV使用规定表头；资产矩阵、重投和码率梯度按asset_id升序，variant明细按asset_id及required_profiles顺序；source_playlist均能定位输入，报告资产集合互相兼容。
 关键字段或路径：reports目录四份CSV的表头、主键和source_playlist。
@@ -72,7 +72,7 @@
 优先级：普通项。
 所属层级：L9跨产物一致性与可追溯层。
 
-检查项：离线处理与输入保护
+7. 离线处理与输入保护
 分值：12分
 标准答案或判定规则：完成版只读取本地发布清单、策略和播放列表，不访问外部服务；运行前后这些输入的内容保持一致。
 关键字段或路径：data/encode_jobs.csv；rules/hls_publish_policy.json；playlists目录；src/audit_hls_publish.mjs。
