@@ -71,6 +71,14 @@ function workbookSheets(file) {
   return [...workbook.matchAll(/<(?:[A-Za-z]+:)?sheet[^>]+name="([^"]+)"/gu)].map((match) => match[1]);
 }
 
+function workbookText(file) {
+  const zip = parseZip(file);
+  return [...zip]
+    .filter(([name]) => name === "xl/sharedStrings.xml" || /^xl\/worksheets\/sheet\d+\.xml$/u.test(name))
+    .map(([, bytes]) => bytes.toString("utf8"))
+    .join("\n");
+}
+
 async function run(command, args, cwd) {
   const started = Date.now();
   return await new Promise((resolve) => {
@@ -226,6 +234,9 @@ const referenceMembers = [...parseZip(path.join(artifactRoot, "reference.zip")).
 assert(JSON.stringify(referenceMembers) === JSON.stringify(expectedReference), "Reference成员错误");
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, "关键标准答案.xlsx"))) === JSON.stringify(["交付物答案清单", "固定字段答案", "固定集合答案", "固定数值答案", "允许变体答案"]), "关键标准答案Sheet错误");
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, "任务规格转化.xlsx"))) === JSON.stringify(["任务规格转化"]), "任务规格Sheet错误");
+const workbookControlTerms = /reference_members|reference\.zip成员|可验证点|不适合作为评分点的内容/iu;
+assert(!workbookControlTerms.test(workbookText(path.join(artifactRoot, "关键标准答案.xlsx"))), "关键标准答案残留制题控制语");
+assert(!workbookControlTerms.test(workbookText(path.join(artifactRoot, "任务规格转化.xlsx"))), "任务规格残留制题控制语");
 const solutionText = parseZip(path.join(artifactRoot, "reference.zip")).get("src/audit_hls_publish.mjs").toString("utf8");
 assert(!/\bvid(?:100|200|300|400)\b|https?:\/\/|node:net|node:http|fetch\s*\(/u.test(solutionText), "完成版模块含样本ID硬编码或外部网络调用");
 

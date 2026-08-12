@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "result": "PASS",
-  "scanned_sources": 198,
+  "scanned_sources": 190,
   "violations": [],
   "answer_sheets": [
     "交付物答案清单",
@@ -13,7 +13,7 @@
   "specification_sheets": [
     "任务规格转化"
   ],
-  "task_spec_row_count": 19,
+  "task_spec_row_count": 17,
   "task_spec_column_count": 2,
   "task_asset_id": "node_hls_publish_disposition",
   "task_asset_id_valid": true,
